@@ -142,6 +142,7 @@ public class Main {
                 try {
                     Process p = Runtime.getRuntime().exec("cmd /c git status -s");
                     BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                    if(br==null) System.out.println("nothing");
                     String line = null;
                     System.out.println("git status");
                     while ((line = br.readLine()) != null){
