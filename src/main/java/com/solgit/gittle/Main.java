@@ -18,6 +18,9 @@ public class Main {
         List<String> files = new ArrayList<>();
 
 
+        final TextField commitText = new TextField(20);
+        Label commitLb = new Label("commit text :", Label.RIGHT);
+
         Frame f = new Frame();
         String[] names = System.getProperty("user.dir").split("\\\\");
         String name =names[names.length-2];
@@ -27,6 +30,8 @@ public class Main {
         Button branchButton = new Button("branch list");
         Button addButton = new Button("git add");
         Button resetButton = new Button("reset");
+        Button commitButton = new Button("commit");
+        Button pushButton = new Button("push");
 
         Process process = Runtime.getRuntime().exec("cmd /c git status --short");
         BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -108,10 +113,36 @@ public class Main {
                 }
             }
         });
+        commitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(commitText.getText());
+                try {
+                    Process p = Runtime.getRuntime().exec("cmd /c git commit -m "+ commitText.getText());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        pushButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Process p = Runtime.getRuntime().exec("cmd /c git push");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         p.add(branchButton);
         p.add(addButton);
         p.add(resetButton);
+        p.add(pushButton);
+        p.add(commitLb);
+        p.add(commitText);
+        p.add(commitButton);
         f.add(p);
+
 
         f.setTitle(name);
         f.setBounds(100,100,500,300);
