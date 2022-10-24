@@ -119,6 +119,7 @@ public class Main {
                 System.out.println(commitText.getText());
                 try {
                     Process p = Runtime.getRuntime().exec("cmd /c git commit -m "+ commitText.getText());
+                    System.out.println("asdf");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
