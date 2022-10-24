@@ -32,6 +32,7 @@ public class Main {
         Button resetButton = new Button("reset");
         Button commitButton = new Button("commit");
         Button pushButton = new Button("push");
+        Button statusButton = new Button("status");
 
         Process process = Runtime.getRuntime().exec("cmd /c git status --short");
         BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -118,7 +119,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(commitText.getText());
                 try {
-                    Process p = Runtime.getRuntime().exec("cmd /c git commit -m "+ commitText.getText());
+                    Process p = Runtime.getRuntime().exec("cmd /c git commit -m "+"\"" +commitText.getText()+"\"");
                     System.out.println("asdf");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -135,6 +136,23 @@ public class Main {
                 }
             }
         });
+        statusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Process p = Runtime.getRuntime().exec("cmd /c git status -s");
+                    BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                    String line = null;
+                    System.out.println("git status");
+                    while ((line = br.readLine()) != null){
+                        System.out.println(line);
+                    }
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        p.add(statusButton);
         p.add(branchButton);
         p.add(addButton);
         p.add(resetButton);
