@@ -34,7 +34,7 @@ public class Main {
         Button pushButton = new Button("push");
         Button statusButton = new Button("status");
 
-        Process process = Runtime.getRuntime().exec("cmd /c git status --short");
+        Process process = Runtime.getRuntime().exec("cmd /c git status -s");
         BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line = null;
         System.out.println("<OUTPUT>");
@@ -47,7 +47,7 @@ public class Main {
 
         for (Checkbox cb : checkboxes) {
             p.add(cb);
-            System.out.println(cb.getLabel());
+            //System.out.println(cb.getLabel());
             cb.addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     String[] temp = cb.getLabel().split(" ");
@@ -120,7 +120,7 @@ public class Main {
                 System.out.println(commitText.getText());
                 try {
                     Process p = Runtime.getRuntime().exec("cmd /c git commit -m "+"\"" +commitText.getText()+"\"");
-                    System.out.println("asdf");
+                    System.out.println("git commit -m "+"\"" +commitText.getText()+"\"");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
